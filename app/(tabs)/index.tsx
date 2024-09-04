@@ -7,6 +7,8 @@ import ItemSelector from "@/components/ItemSelector";
 import GridItemSelector from "@/components/GridItemSelector";
 import ClearList from "@/components/ClearList";
 import Item from "@/components/Item";
+import ShoppingListItem from "@/components/ShoppingListItem";
+import ShoppingList from "@/components/ShoppingList";
 
 export default function TabOneList() {
   const [shoppingItems, setShoppingItems] = useState([]);
@@ -21,10 +23,7 @@ export default function TabOneList() {
         )}
       </View>
       <View style={styles.shoppingList}>
-        <FlatList
-          data={shoppingItems}
-          renderItem={({ item }) => <Item name={item} />}
-        />
+        <ShoppingList shoppingItems={shoppingItems} />
       </View>
       <View style={styles.itemSelector}>
         <GridItemSelector
@@ -56,6 +55,7 @@ const styles = StyleSheet.create({
   shoppingList: {
     flex: 5,
     justifyContent: "flex-start",
+    width: "80%",
   },
   itemSelector: {
     flex: 2,

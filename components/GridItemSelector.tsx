@@ -19,7 +19,7 @@ export default function GridItemSelector({
     "Courgette",
     "Pies",
     "Trousers",
-    "Bin Liners",
+    "Bananas",
     "Cat Food",
   ];
 
