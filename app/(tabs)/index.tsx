@@ -5,6 +5,7 @@ import { Text, View } from "@/components/Themed";
 import { useState } from "react";
 import { FlatList } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
+import ItemSelector from "@/components/ItemSelector";
 
 export default function TabOneList() {
   const [shoppingItems, setShoppingItems] = useState([
@@ -12,13 +13,6 @@ export default function TabOneList() {
     "chocolate",
     "apples",
   ]);
-
-  const [selectedItem, setSelectedItem] = useState("");
-
-  const availableItems = [
-    { key: "1", value: "Beer" },
-    { key: "2", value: "Ham" },
-  ];
 
   return (
     <View style={styles.container}>
@@ -28,26 +22,10 @@ export default function TabOneList() {
         renderItem={({ item }) => <Text>{item}</Text>}
       />
 
-      <View style={styles.optionsContainer}>
-        <View style={styles.optionsRow}>
-          <SelectList
-            setSelected={setSelectedItem}
-            data={availableItems}
-            save="value"
-          />
-          <Pressable
-            onPress={() =>
-              setShoppingItems((shoppingItems) => [
-                ...shoppingItems,
-                selectedItem,
-              ])
-            }
-          >
-            {/* <Pressable onPress={() => alert(selectedItem)}>*/}
-            <Text>Add an Item</Text>
-          </Pressable>
-        </View>
-      </View>
+      <ItemSelector
+        setShoppingItems={setShoppingItems}
+        shoppingItems={shoppingItems}
+      />
     </View>
   );
 }
