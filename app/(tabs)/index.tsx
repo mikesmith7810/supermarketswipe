@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FlatList } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import ItemSelector from "@/components/ItemSelector";
+import GridItemSelector from "@/components/GridItemSelector";
 import ClearList from "@/components/ClearList";
 import Item from "@/components/Item";
 
@@ -26,7 +27,7 @@ export default function TabOneList() {
         />
       </View>
       <View style={styles.itemSelector}>
-        <ItemSelector
+        <GridItemSelector
           setShoppingItems={setShoppingItems}
           shoppingItems={shoppingItems}
         />
@@ -53,12 +54,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   shoppingList: {
-    flex: 6,
+    flex: 5,
     justifyContent: "flex-start",
   },
   itemSelector: {
-    flex: 1,
+    flex: 2,
     justifyContent: "center",
+    width: "90%",
   },
   clearList: {
     flex: 1,
