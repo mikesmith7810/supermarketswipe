@@ -1,13 +1,7 @@
-import { Pressable, StyleSheet, TextInput, Text, View } from "react-native";
-
+import { StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
-import { FlatList } from "react-native";
-import { SelectList } from "react-native-dropdown-select-list";
-import ItemSelector from "@/components/ItemSelector";
 import GridItemSelector from "@/components/GridItemSelector";
 import ClearList from "@/components/ClearList";
-import Item from "@/components/Item";
-import ShoppingListItem from "@/components/ShoppingListItem";
 import ShoppingList from "@/components/ShoppingList";
 
 export default function TabOneList() {
@@ -32,10 +26,7 @@ export default function TabOneList() {
         />
       </View>
       <View style={styles.clearList}>
-        <ClearList
-          setShoppingItems={setShoppingItems}
-          shoppingItems={shoppingItems}
-        />
+        <ClearList setShoppingItems={setShoppingItems} />
       </View>
     </View>
   );
@@ -69,27 +60,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-  listItem: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  optionsContainer: {
-    position: "absolute",
-    bottom: 80,
-  },
-  optionsRow: {
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  itemInput: {
-    width: "80%",
-    backgroundColor: "lightgray",
-    color: "black",
   },
 });

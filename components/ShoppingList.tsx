@@ -1,13 +1,5 @@
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import React, { useState } from "react";
-import Item from "./Item";
+import { FlatList, StyleSheet } from "react-native";
+import React from "react";
 import ShoppingListItem from "./ShoppingListItem";
 
 interface ShoppingListProps {
@@ -22,24 +14,3 @@ export default function ShoppingList({ shoppingItems }: ShoppingListProps) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  optionsRow: {
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  addItem: {
-    margin: 20,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  shoppingListItem: {
-    margin: 5,
-    width: "100%",
-    backgroundColor: "lightgreen",
-  },
-  itemCellText: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-});

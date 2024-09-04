@@ -1,5 +1,5 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 
 interface GridItemSelectorProps {
   setShoppingItems: any;
@@ -45,10 +45,6 @@ export default function GridItemSelector({
 }
 
 const styles = StyleSheet.create({
-  optionsRow: {
-    alignItems: "center",
-    flexDirection: "row",
-  },
   addItem: {
     margin: 20,
     fontSize: 20,

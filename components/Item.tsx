@@ -20,12 +20,3 @@ export default function ListItem({ name, bought }: ListItemProps) {
     </Text>
   );
 }
-
-const styles = StyleSheet.create({
-  listItem: {
-    margin: 10,
-    fontSize: 25,
-    fontWeight: "bold",
-    color: "black",
-  },
-});
