@@ -2,15 +2,15 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { useState } from "react";
 
-interface ItemSelectorProps {
+interface ClearListProps {
   setShoppingItems: any;
   shoppingItems: string[];
 }
 
-export default function ItemSelector({
+export default function ClearList({
   setShoppingItems,
   shoppingItems,
-}: ItemSelectorProps) {
+}: ClearListProps) {
   const availableItems = [
     { key: "1", value: "Beer" },
     { key: "2", value: "Ham" },
@@ -22,24 +22,14 @@ export default function ItemSelector({
 
   const [selectedItem, setSelectedItem] = useState("");
 
-  const addItemToShoppingList = () => {
-    if (shoppingItems.indexOf(selectedItem) == -1) {
-      setShoppingItems((shoppingItems: string[]) => [
-        selectedItem,
-        ...shoppingItems,
-      ]);
-    }
+  const clearShoppingList = () => {
+    setShoppingItems([]);
   };
 
   return (
     <View style={styles.optionsRow}>
-      <SelectList
-        setSelected={setSelectedItem}
-        data={availableItems}
-        save="value"
-      />
-      <Pressable onPress={addItemToShoppingList}>
-        <Text style={styles.addItem}>Add an Item</Text>
+      <Pressable onPress={clearShoppingList}>
+        <Text style={styles.addItem}>Clear Shopping List</Text>
       </Pressable>
     </View>
   );
