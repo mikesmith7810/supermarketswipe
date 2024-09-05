@@ -1,5 +1,13 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
+import ItemButton from "./ItemButton";
 
 interface GridItemSelectorProps {
   setShoppingItems: any;
@@ -34,9 +42,12 @@ export default function GridItemSelector({
       data={availableItems}
       renderItem={({ item }) => (
         <View style={styles.itemCell}>
-          <Pressable onPress={() => addItemToShoppingList({ item })}>
-            <Text style={styles.itemCellText}>{item}</Text>
-          </Pressable>
+          <ItemButton
+            onPress={() => addItemToShoppingList({ item })}
+            title={item}
+            buttonColour="#03a2f3"
+            textColour="#ffffff"
+          />
         </View>
       )}
       numColumns={3}
@@ -51,7 +62,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   itemCell: {
-    margin: 5,
+    margin: 0,
     width: "33%",
   },
   itemCellText: {

@@ -1,11 +1,11 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import ItemButton from "./ItemButton";
 
-interface ClearListProps {
+interface HideItemsProps {
   setShoppingItems: any;
 }
 
-export default function ClearList({ setShoppingItems }: ClearListProps) {
+export default function HideItems({ setShoppingItems }: HideItemsProps) {
   const clearShoppingList = () => {
     setShoppingItems([]);
   };
@@ -13,8 +13,8 @@ export default function ClearList({ setShoppingItems }: ClearListProps) {
   return (
     <ItemButton
       onPress={clearShoppingList}
-      title="Clear List"
-      buttonColour="#e73a40"
+      title="Hide Items"
+      buttonColour="#978edd"
       textColour="#ffffff"
     />
   );
