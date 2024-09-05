@@ -37,6 +37,17 @@ export default function GridItemSelector({
     }
   }
 
+  const footer = () => {
+    return (
+      <ItemButton
+        onPress={() => alert(1)}
+        title={"Add New Item"}
+        buttonColour={"#306cb5"}
+        textColour={"white"}
+      />
+    );
+  };
+
   return (
     <FlatList
       data={availableItems}
@@ -50,6 +61,7 @@ export default function GridItemSelector({
           />
         </View>
       )}
+      ListFooterComponent={footer}
       numColumns={3}
     />
   );
