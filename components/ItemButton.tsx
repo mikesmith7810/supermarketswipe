@@ -42,21 +42,3 @@ export const styles = (colour: string) =>
       textTransform: "uppercase",
     },
   });
-
-// const styles = StyleSheet.create({
-//   appButtonContainer: {
-//     elevation: 8,
-//     backgroundColor: "#15a2f3",
-//     borderRadius: 10,
-//     paddingVertical: 10,
-//     paddingHorizontal: 12,
-//     margin: 4,
-//   },
-//   appButtonText: {
-//     fontSize: 14,
-//     color: "#fff",
-//     fontWeight: "bold",
-//     alignSelf: "center",
-//     textTransform: "uppercase",
-//   },
-// });

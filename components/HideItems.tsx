@@ -1,18 +1,29 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
 import ItemButton from "./ItemButton";
 
 interface HideItemsProps {
-  setShoppingItems: any;
+  showItems: boolean;
+  setShowItems: any;
+  setShoppingListFlexSize: any;
 }
 
-export default function HideItems({ setShoppingItems }: HideItemsProps) {
-  const clearShoppingList = () => {
-    setShoppingItems([]);
+export default function HideItems({
+  showItems,
+  setShowItems,
+  setShoppingListFlexSize,
+}: HideItemsProps) {
+  const toggleItems = () => {
+    if (showItems) {
+      setShowItems(false);
+      setShoppingListFlexSize(7);
+    } else {
+      setShowItems(true);
+      setShoppingListFlexSize(3);
+    }
   };
 
   return (
     <ItemButton
-      onPress={clearShoppingList}
+      onPress={toggleItems}
       title="Hide Items"
       buttonColour="#978edd"
       textColour="#ffffff"
