@@ -35,6 +35,7 @@ export default function TabOneList() {
 
   function addItemToAvailableItems(item: string) {
     setAvailableItems((availableItems: string[]) => [item, ...availableItems]);
+    // setAvailableItems(availableItems.toSorted());
   }
 
   return (
@@ -42,7 +43,7 @@ export default function TabOneList() {
       <View style={styles(shoppingListFlexSize).header}>
         {shoppingItems.length < 1 ? (
           <Text style={styles(shoppingListFlexSize).title}>
-            Empty shopping list!
+            No Shopping List Created!
           </Text>
         ) : (
           <Text style={styles(shoppingListFlexSize).title}>
@@ -50,19 +51,13 @@ export default function TabOneList() {
           </Text>
         )}
       </View>
+
       {showShoppingList ? (
         <View style={styles(shoppingListFlexSize).shoppingList}>
           <ShoppingList shoppingItems={shoppingItems} />
         </View>
       ) : null}
-      {showAddItem ? (
-        <View style={styles(shoppingListFlexSize).addItem}>
-          <AddItem
-            availableitems={availableItems}
-            setAvailableItems={setAvailableItems}
-          />
-        </View>
-      ) : null}
+
       {showItems ? (
         <View style={styles(shoppingListFlexSize).itemSelector}>
           <View style={styles(shoppingListFlexSize).availableItems}>
@@ -97,6 +92,7 @@ export default function TabOneList() {
           </View>
         </View>
       ) : null}
+
       <View style={styles(shoppingListFlexSize).viewButtons}>
         <View style={styles(shoppingListFlexSize).clearList}>
           <ClearList setShoppingItems={setShoppingItems} />
