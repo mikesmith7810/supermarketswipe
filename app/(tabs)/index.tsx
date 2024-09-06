@@ -35,7 +35,8 @@ export default function TabOneList() {
 
   function addItemToAvailableItems(item: string) {
     setAvailableItems((availableItems: string[]) => [item, ...availableItems]);
-    // setAvailableItems(availableItems.toSorted());
+    // const temp = availableItems.sort;
+    // setAvailableItems(() => availableItems.toSorted());
   }
 
   return (
@@ -54,7 +55,10 @@ export default function TabOneList() {
 
       {showShoppingList ? (
         <View style={styles(shoppingListFlexSize).shoppingList}>
-          <ShoppingList shoppingItems={shoppingItems} />
+          <ShoppingList
+            shoppingItems={shoppingItems}
+            setShoppingItems={setShoppingItems}
+          />
         </View>
       ) : null}
 
