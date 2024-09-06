@@ -11,33 +11,26 @@ import React from "react";
 import ItemButton from "./ItemButton";
 
 interface GridItemSelectorProps {
-  availableItems: string[];
   setShoppingItems: any;
   shoppingItems: string[];
-  setShowShoppingList: any;
-  showShoppingList: any;
-  setShowAddItem: any;
-  showAddItem: any;
+  setAvailableItems: any;
+  availableItems: string[];
 }
 
 export default function GridItemSelector({
   availableItems,
+  setAvailableItems,
   setShoppingItems,
   shoppingItems,
-  setShowShoppingList,
-  showShoppingList,
-  setShowAddItem,
-  showAddItem,
 }: GridItemSelectorProps) {
-  function addItemToShoppingList({ item }: { item: string }) {
+  function addItemToShoppingList(item: string) {
     if (shoppingItems.indexOf(item) == -1) {
       setShoppingItems((shoppingItems: string[]) => [item, ...shoppingItems]);
     }
   }
 
-  function toggleAddItemForm() {
-    setShowAddItem(!showAddItem);
-    setShowShoppingList(!showShoppingList);
+  function deleteItemFromAvailableItems(item: string) {
+    setAvailableItems(availableItems.filter((e) => e !== item));
   }
 
   return (
@@ -46,7 +39,8 @@ export default function GridItemSelector({
       renderItem={({ item }) => (
         <View style={styles.itemCell}>
           <ItemButton
-            onPress={() => addItemToShoppingList({ item })}
+            onLongPress={() => deleteItemFromAvailableItems(item)}
+            onPress={() => addItemToShoppingList(item)}
             title={item}
             buttonColour="#03a2f3"
             textColour="#ffffff"

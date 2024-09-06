@@ -63,12 +63,9 @@ export default function TabOneList() {
           <View style={styles(shoppingListFlexSize).availableItems}>
             <GridItemSelector
               availableItems={availableItems}
+              setAvailableItems={setAvailableItems}
               setShoppingItems={setShoppingItems}
               shoppingItems={shoppingItems}
-              setShowShoppingList={setShowShoppingList}
-              showShoppingList={showShoppingList}
-              setShowAddItem={setShowAddItem}
-              showAddItem={showAddItem}
             />
           </View>
 
@@ -86,6 +83,7 @@ export default function TabOneList() {
                 }
                 placeholder="Eg: Apples"
                 placeholderTextColor={"#e2e4e8"}
+                selectionColor={"#e2e4e8"}
                 autoCorrect={false}
               />
             </KeyboardAvoiderView>
