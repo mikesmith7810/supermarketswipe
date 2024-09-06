@@ -10,37 +10,39 @@ import React from "react";
 import ItemButton from "./ItemButton";
 
 interface GridItemSelectorProps {
+  availableItems: string[];
   setShoppingItems: any;
   shoppingItems: string[];
+  setShowShoppingList: any;
+  showShoppingList: any;
+  setShowAddItem: any;
+  showAddItem: any;
 }
 
 export default function GridItemSelector({
+  availableItems,
   setShoppingItems,
   shoppingItems,
+  setShowShoppingList,
+  showShoppingList,
+  setShowAddItem,
+  showAddItem,
 }: GridItemSelectorProps) {
-  const availableItems = [
-    "Beer",
-    "Ham",
-    "Apples",
-    "Bread",
-    "Choc",
-    "Courgette",
-    "Pies",
-    "Trousers",
-    "Bananas",
-    "Cat Food",
-  ];
-
   function addItemToShoppingList({ item }: { item: string }) {
     if (shoppingItems.indexOf(item) == -1) {
       setShoppingItems((shoppingItems: string[]) => [item, ...shoppingItems]);
     }
   }
 
+  function toggleAddItemForm() {
+    setShowAddItem(!showAddItem);
+    setShowShoppingList(!showShoppingList);
+  }
+
   const footer = () => {
     return (
       <ItemButton
-        onPress={() => alert(1)}
+        onPress={toggleAddItemForm}
         title={"Add New Item"}
         buttonColour={"#306cb5"}
         textColour={"white"}
@@ -61,7 +63,7 @@ export default function GridItemSelector({
           />
         </View>
       )}
-      ListFooterComponent={footer}
+      ListHeaderComponent={footer}
       numColumns={3}
     />
   );

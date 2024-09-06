@@ -1,14 +1,29 @@
-import { Animated, StyleSheet, Text, View } from "react-native";
+import { Animated, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import GridItemSelector from "@/components/GridItemSelector";
 import ClearList from "@/components/ClearList";
 import ShoppingList from "@/components/ShoppingList";
 import HideItems from "@/components/HideItems";
+import AddItem from "@/components/AddItem";
 
 export default function TabOneList() {
   const [shoppingItems, setShoppingItems] = useState([]);
   const [showItems, setShowItems] = useState(true);
+  const [showShoppingList, setShowShoppingList] = useState(true);
+  const [showAddItem, setShowAddItem] = useState(false);
   const [shoppingListFlexSize, setShoppingListFlexSize] = useState(3);
+  const [availableItems, setAvailableItems] = useState([
+    "Beer",
+    "Ham",
+    "Apples",
+    "Bread",
+    "Choc",
+    "Courgette",
+    "Pies",
+    "Trousers",
+    "Bananas",
+    "Cat Food",
+  ]);
 
   return (
     <View style={styles(shoppingListFlexSize).container}>
@@ -19,18 +34,33 @@ export default function TabOneList() {
           </Text>
         ) : (
           <Text style={styles(shoppingListFlexSize).title}>
-            Add Items To Your List
+            Your Shopping List
           </Text>
         )}
       </View>
-      <Animated.View style={styles(shoppingListFlexSize).shoppingList}>
-        <ShoppingList shoppingItems={shoppingItems} />
-      </Animated.View>
+      {showShoppingList ? (
+        <View style={styles(shoppingListFlexSize).shoppingList}>
+          <ShoppingList shoppingItems={shoppingItems} />
+        </View>
+      ) : null}
+      {showAddItem ? (
+        <View style={styles(shoppingListFlexSize).addItem}>
+          <AddItem
+            availableitems={availableItems}
+            setAvailableItems={setAvailableItems}
+          />
+        </View>
+      ) : null}
       {showItems ? (
         <View style={styles(shoppingListFlexSize).itemSelector}>
           <GridItemSelector
+            availableItems={availableItems}
             setShoppingItems={setShoppingItems}
             shoppingItems={shoppingItems}
+            setShowShoppingList={setShowShoppingList}
+            showShoppingList={showShoppingList}
+            setShowAddItem={setShowAddItem}
+            showAddItem={showAddItem}
           />
         </View>
       ) : null}
@@ -67,6 +97,11 @@ export const styles = (shoppingListFlexSize: number) =>
       justifyContent: "flex-start",
       width: "80%",
     },
+    addItem: {
+      flex: shoppingListFlexSize,
+      justifyContent: "flex-start",
+      width: "80%",
+    },
     itemSelector: {
       flex: 4,
       justifyContent: "center",
@@ -90,5 +125,17 @@ export const styles = (shoppingListFlexSize: number) =>
     title: {
       fontSize: 20,
       fontWeight: "bold",
+    },
+    addItemTitle: {
+      fontSize: 18,
+      fontWeight: "bold",
+      width: "80%",
+      margin: 5,
+    },
+    addItemInput: {
+      borderWidth: 1,
+      width: "80%",
+      padding: 4,
+      margin: 5,
     },
   });
