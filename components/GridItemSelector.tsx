@@ -4,6 +4,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 import React from "react";
@@ -39,17 +40,6 @@ export default function GridItemSelector({
     setShowShoppingList(!showShoppingList);
   }
 
-  const footer = () => {
-    return (
-      <ItemButton
-        onPress={toggleAddItemForm}
-        title={"Add New Item"}
-        buttonColour={"#306cb5"}
-        textColour={"white"}
-      />
-    );
-  };
-
   return (
     <FlatList
       data={availableItems}
@@ -63,7 +53,6 @@ export default function GridItemSelector({
           />
         </View>
       )}
-      ListHeaderComponent={footer}
       numColumns={3}
     />
   );
@@ -75,6 +64,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  itemsHeader: {
+    flexDirection: "row",
+  },
+  addItemButton: {
+    flex: 2,
+  },
+  itemInput: {
+    flex: 3,
+  },
   itemCell: {
     margin: 0,
     width: "33%",
@@ -82,5 +80,11 @@ const styles = StyleSheet.create({
   itemCellText: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  addItemInput: {
+    borderWidth: 1,
+    width: "80%",
+    padding: 4,
+    margin: 5,
   },
 });

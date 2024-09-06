@@ -12,7 +12,8 @@ export default function ClearList({ setShoppingItems }: ClearListProps) {
 
   return (
     <ItemButton
-      onPress={clearShoppingList}
+      onPress={() => alert("Hold to clear.")}
+      onLongPress={clearShoppingList}
       title="Clear List"
       buttonColour="#e73a40"
       textColour="#ffffff"

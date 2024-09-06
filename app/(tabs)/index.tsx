@@ -1,10 +1,18 @@
-import { Animated, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Animated,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import GridItemSelector from "@/components/GridItemSelector";
 import ClearList from "@/components/ClearList";
 import ShoppingList from "@/components/ShoppingList";
 import HideItems from "@/components/HideItems";
 import AddItem from "@/components/AddItem";
+import { KeyboardAvoiderView } from "@good-react-native/keyboard-avoider";
 
 export default function TabOneList() {
   const [shoppingItems, setShoppingItems] = useState([]);
@@ -24,6 +32,10 @@ export default function TabOneList() {
     "Bananas",
     "Cat Food",
   ]);
+
+  function addItemToAvailableItems(item: string) {
+    setAvailableItems((availableItems: string[]) => [item, ...availableItems]);
+  }
 
   return (
     <View style={styles(shoppingListFlexSize).container}>
@@ -53,15 +65,36 @@ export default function TabOneList() {
       ) : null}
       {showItems ? (
         <View style={styles(shoppingListFlexSize).itemSelector}>
-          <GridItemSelector
-            availableItems={availableItems}
-            setShoppingItems={setShoppingItems}
-            shoppingItems={shoppingItems}
-            setShowShoppingList={setShowShoppingList}
-            showShoppingList={showShoppingList}
-            setShowAddItem={setShowAddItem}
-            showAddItem={showAddItem}
-          />
+          <View style={styles(shoppingListFlexSize).availableItems}>
+            <GridItemSelector
+              availableItems={availableItems}
+              setShoppingItems={setShoppingItems}
+              shoppingItems={shoppingItems}
+              setShowShoppingList={setShowShoppingList}
+              showShoppingList={showShoppingList}
+              setShowAddItem={setShowAddItem}
+              showAddItem={showAddItem}
+            />
+          </View>
+
+          <View style={styles(shoppingListFlexSize).addAvailableItem}>
+            <Text style={styles(shoppingListFlexSize).addItemInputLabel}>
+              Add new item :
+            </Text>
+            <KeyboardAvoiderView
+              style={styles(shoppingListFlexSize).addItemKeyboardInput}
+            >
+              <TextInput
+                style={styles(shoppingListFlexSize).addItemInput}
+                onSubmitEditing={(item) =>
+                  addItemToAvailableItems(item.nativeEvent.text)
+                }
+                placeholder="Eg: Apples"
+                placeholderTextColor={"#e2e4e8"}
+                autoCorrect={false}
+              />
+            </KeyboardAvoiderView>
+          </View>
         </View>
       ) : null}
       <View style={styles(shoppingListFlexSize).viewButtons}>
@@ -108,6 +141,49 @@ export const styles = (shoppingListFlexSize: number) =>
       marginTop: 15,
       width: "90%",
     },
+    availableItems: {
+      flex: 6,
+    },
+    addAvailableItem: {
+      flexDirection: "row",
+      flex: 1,
+      backgroundColor: "#03a2f3",
+      borderRadius: 10,
+      padding: 4,
+      margin: 5,
+    },
+    addItemInput: {
+      flex: 3,
+      fontSize: 16,
+      fontWeight: "bold",
+      textTransform: "uppercase",
+      color: "white",
+      width: "90%",
+      margin: 5,
+      paddingLeft: 5,
+      backgroundColor: "#2369bd",
+      borderRadius: 10,
+    },
+    addItemKeyboardInput: {
+      flex: 3,
+    },
+    addItemInputLabel: {
+      flex: 2,
+      fontSize: 14,
+      fontWeight: "bold",
+      textTransform: "uppercase",
+      color: "#ffffff",
+      width: "80%",
+      padding: 4,
+      margin: 7,
+    },
+    appButtonContainer: {
+      elevation: 8,
+      borderRadius: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 12,
+      margin: 4,
+    },
     viewButtons: {
       flex: 1,
       flexDirection: "row",
@@ -130,12 +206,6 @@ export const styles = (shoppingListFlexSize: number) =>
       fontSize: 18,
       fontWeight: "bold",
       width: "80%",
-      margin: 5,
-    },
-    addItemInput: {
-      borderWidth: 1,
-      width: "80%",
-      padding: 4,
       margin: 5,
     },
   });

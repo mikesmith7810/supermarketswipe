@@ -2,6 +2,7 @@ import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
 interface ItemButtonProps {
   onPress: any;
+  onLongPress: any;
   title: string;
   buttonColour: string;
   textColour: string;
@@ -9,6 +10,7 @@ interface ItemButtonProps {
 
 export default function ItemButton({
   onPress,
+  onLongPress,
   title,
   buttonColour,
   textColour,
@@ -17,6 +19,7 @@ export default function ItemButton({
     <TouchableOpacity
       activeOpacity={0.3}
       onPress={onPress}
+      onLongPress={onLongPress}
       style={styles(buttonColour).appButtonContainer}
     >
       <Text style={styles(textColour).appButtonText}>{title}</Text>
