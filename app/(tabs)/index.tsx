@@ -21,22 +21,13 @@ export default function TabOneList() {
   const [showAddItem, setShowAddItem] = useState(false);
   const [shoppingListFlexSize, setShoppingListFlexSize] = useState(3);
   const [availableItems, setAvailableItems] = useState([
-    "Beer",
     "Ham",
     "Apples",
     "Bread",
-    "Choc",
-    "Courgette",
-    "Pies",
-    "Trousers",
-    "Bananas",
-    "Cat Food",
   ]);
 
   function addItemToAvailableItems(item: string) {
-    setAvailableItems((availableItems: string[]) => [item, ...availableItems]);
-    // const temp = availableItems.sort;
-    // setAvailableItems(() => availableItems.toSorted());
+    setAvailableItems([item, ...availableItems].sort());
   }
 
   return (
