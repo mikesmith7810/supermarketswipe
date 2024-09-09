@@ -1,11 +1,10 @@
-import { Pressable, StyleSheet, View } from "react-native";
 import React, { useState } from "react";
-import Item from "./Item";
 import ItemButton from "./ItemButton";
+import { Item } from "./Item";
 
 interface ShoppingListItemProps {
-  shoppingItem: string;
-  shoppingItems: string[];
+  shoppingItem: Item;
+  shoppingItems: Item[];
   setShoppingItems: any;
 }
 
@@ -16,7 +15,7 @@ export default function ShoppingListItem({
 }: ShoppingListItemProps) {
   const [bought, setBought] = useState(false);
 
-  function deleteItemFromShoppingList(item: string) {
+  function deleteItemFromShoppingList(item: Item) {
     setShoppingItems(shoppingItems.filter((e) => e !== item));
   }
 
@@ -24,7 +23,7 @@ export default function ShoppingListItem({
     <ItemButton
       onLongPress={() => deleteItemFromShoppingList(shoppingItem)}
       onPress={() => setBought(!bought)}
-      title={shoppingItem}
+      title={shoppingItem.name}
       buttonColour={bought ? "lightgray" : "lightgreen"}
       textColour={bought ? "gray" : "black"}
     />

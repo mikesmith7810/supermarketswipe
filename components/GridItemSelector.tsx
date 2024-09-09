@@ -1,20 +1,13 @@
-import {
-  Button,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
 import ItemButton from "./ItemButton";
+import { Item } from "./Item";
 
 interface GridItemSelectorProps {
   setShoppingItems: any;
-  shoppingItems: string[];
+  shoppingItems: Item[];
   setAvailableItems: any;
-  availableItems: string[];
+  availableItems: Item[];
 }
 
 export default function GridItemSelector({
@@ -23,14 +16,18 @@ export default function GridItemSelector({
   setShoppingItems,
   shoppingItems,
 }: GridItemSelectorProps) {
-  function addItemToShoppingList(item: string) {
-    if (shoppingItems.indexOf(item) == -1) {
+  function addItemToShoppingList(item: Item) {
+    if (
+      !shoppingItems.some((shoppingItem) => shoppingItem.name === item.name)
+    ) {
       setShoppingItems((shoppingItems: string[]) => [item, ...shoppingItems]);
     }
   }
 
-  function deleteItemFromAvailableItems(item: string) {
-    setAvailableItems(availableItems.filter((e) => e !== item));
+  function deleteItemFromAvailableItems(item: Item) {
+    setAvailableItems(
+      availableItems.filter((availableItem) => availableItem.name !== item.name)
+    );
   }
 
   return (
@@ -41,7 +38,7 @@ export default function GridItemSelector({
           <ItemButton
             onLongPress={() => deleteItemFromAvailableItems(item)}
             onPress={() => addItemToShoppingList(item)}
-            title={item}
+            title={item.name}
             buttonColour="#03a2f3"
             textColour="#ffffff"
           />

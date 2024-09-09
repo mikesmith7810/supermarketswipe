@@ -1,32 +1,25 @@
-import {
-  Animated,
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import GridItemSelector from "@/components/GridItemSelector";
 import ClearList from "@/components/ClearList";
 import ShoppingList from "@/components/ShoppingList";
 import HideItems from "@/components/HideItems";
-import AddItem from "@/components/AddItem";
+import { Item } from "@/components/Item";
 import { KeyboardAvoiderView } from "@good-react-native/keyboard-avoider";
+import { Category } from "@/components/Category";
 
 export default function TabOneList() {
   const [shoppingItems, setShoppingItems] = useState([]);
-  const [showItems, setShowItems] = useState(true);
+  const [showAvailableItems, setShowAvailableItems] = useState(true);
   const [showShoppingList, setShowShoppingList] = useState(true);
-  const [showAddItem, setShowAddItem] = useState(false);
   const [shoppingListFlexSize, setShoppingListFlexSize] = useState(3);
   const [availableItems, setAvailableItems] = useState([
-    "Ham",
-    "Apples",
-    "Bread",
+    new Item("Bread", Category.Bakery),
+    new Item("Ice Cream", Category.Frozen),
+    new Item("Apples", Category.FruitVeg),
   ]);
 
-  function addItemToAvailableItems(item: string) {
+  function addItemToAvailableItems(item: Item) {
     setAvailableItems([item, ...availableItems].sort());
   }
 
@@ -53,7 +46,7 @@ export default function TabOneList() {
         </View>
       ) : null}
 
-      {showItems ? (
+      {showAvailableItems ? (
         <View style={styles(shoppingListFlexSize).itemSelector}>
           <View style={styles(shoppingListFlexSize).availableItems}>
             <GridItemSelector
@@ -74,7 +67,9 @@ export default function TabOneList() {
               <TextInput
                 style={styles(shoppingListFlexSize).addItemInput}
                 onSubmitEditing={(item) =>
-                  addItemToAvailableItems(item.nativeEvent.text)
+                  addItemToAvailableItems(
+                    new Item(item.nativeEvent.text, Category.Bakery)
+                  )
                 }
                 placeholder="Eg: Apples"
                 placeholderTextColor={"#e2e4e8"}
@@ -92,8 +87,8 @@ export default function TabOneList() {
         </View>
         <View style={styles(shoppingListFlexSize).hideItems}>
           <HideItems
-            showItems={showItems}
-            setShowItems={setShowItems}
+            showItems={showAvailableItems}
+            setShowItems={setShowAvailableItems}
             setShoppingListFlexSize={setShoppingListFlexSize}
           />
         </View>

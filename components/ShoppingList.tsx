@@ -1,9 +1,10 @@
 import { FlatList } from "react-native";
 import React from "react";
 import ShoppingListItem from "./ShoppingListItem";
+import { Item } from "./Item";
 
 interface ShoppingListProps {
-  shoppingItems: string[];
+  shoppingItems: Item[];
   setShoppingItems: any;
 }
 
