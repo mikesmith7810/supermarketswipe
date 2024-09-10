@@ -1,4 +1,4 @@
-import { Category } from "@/app/(tabs)";
+import { Category } from "./Category";
 
 export class Item {
   name: string;

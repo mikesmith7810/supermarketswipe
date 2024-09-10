@@ -8,6 +8,10 @@ import { Item } from "@/components/Item";
 import { KeyboardAvoiderView } from "@good-react-native/keyboard-avoider";
 import { Category } from "@/components/Category";
 
+export interface CategoryGroup {
+  category: Category;
+  categoryItems: Item[];
+}
 export default function TabOneList() {
   const [shoppingItems, setShoppingItems] = useState([]);
   const [showAvailableItems, setShowAvailableItems] = useState(true);
@@ -18,6 +22,16 @@ export default function TabOneList() {
     new Item("Ice Cream", Category.Frozen),
     new Item("Apples", Category.FruitVeg),
   ]);
+  const [bakeryItems, setBakeryItems] = useState([]);
+  const [frozenItems, setFrozenItems] = useState([]);
+  const [fruitVegItems, setFruitVegItems] = useState([]);
+
+  const [shoppingItemsByCategory, setshoppingItemsByCategory] = useState([
+    { category: Category.Bakery, categoryItems: bakeryItems },
+    { category: Category.Frozen, categoryItems: frozenItems },
+    { category: Category.FruitVeg, categoryItems: fruitVegItems },
+  ]);
+  const categoryOrder = [3, 1, 2];
 
   function addItemToAvailableItems(item: Item) {
     setAvailableItems([item, ...availableItems].sort());
