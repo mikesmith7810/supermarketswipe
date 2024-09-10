@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import GridItemSelector from "@/components/GridItemSelector";
 import ClearList from "@/components/ClearList";
@@ -7,6 +7,7 @@ import HideItems from "@/components/HideItems";
 import { Item } from "@/components/Item";
 import { KeyboardAvoiderView } from "@good-react-native/keyboard-avoider";
 import { Category } from "@/components/Category";
+import ItemButton from "@/components/ItemButton";
 
 export interface CategoryGroup {
   category: Category;
@@ -22,20 +23,14 @@ export default function TabOneList() {
     new Item("Ice Cream", Category.Frozen),
     new Item("Apples", Category.FruitVeg),
   ]);
-  const [bakeryItems, setBakeryItems] = useState([]);
-  const [frozenItems, setFrozenItems] = useState([]);
-  const [fruitVegItems, setFruitVegItems] = useState([]);
 
-  const [shoppingItemsByCategory, setshoppingItemsByCategory] = useState([
-    { category: Category.Bakery, categoryItems: bakeryItems },
-    { category: Category.Frozen, categoryItems: frozenItems },
-    { category: Category.FruitVeg, categoryItems: fruitVegItems },
-  ]);
-  const categoryOrder = [3, 1, 2];
+  const categoryOrder = [Category.Frozen, Category.Bakery, Category.FruitVeg];
 
   function addItemToAvailableItems(item: Item) {
     setAvailableItems([item, ...availableItems].sort());
   }
+
+  const [newItem, setNewItem] = useState<string>("AA");
 
   return (
     <View style={styles(shoppingListFlexSize).container}>
@@ -56,6 +51,7 @@ export default function TabOneList() {
           <ShoppingList
             shoppingItems={shoppingItems}
             setShoppingItems={setShoppingItems}
+            categoryOrder={categoryOrder}
           />
         </View>
       ) : null}
@@ -70,28 +66,45 @@ export default function TabOneList() {
               shoppingItems={shoppingItems}
             />
           </View>
+          <KeyboardAvoiderView
+            style={styles(shoppingListFlexSize).addItemKeyboardInput}
+          >
+            <View style={styles(shoppingListFlexSize).addAvailableItem}>
+              <View style={styles(shoppingListFlexSize).addAvailableItemTop}>
+                <Text style={styles(shoppingListFlexSize).addItemInputLabel}>
+                  Add new item :
+                </Text>
 
-          <View style={styles(shoppingListFlexSize).addAvailableItem}>
-            <Text style={styles(shoppingListFlexSize).addItemInputLabel}>
-              Add new item :
-            </Text>
-            <KeyboardAvoiderView
-              style={styles(shoppingListFlexSize).addItemKeyboardInput}
-            >
-              <TextInput
-                style={styles(shoppingListFlexSize).addItemInput}
-                onSubmitEditing={(item) =>
-                  addItemToAvailableItems(
-                    new Item(item.nativeEvent.text, Category.Bakery)
-                  )
-                }
-                placeholder="Eg: Apples"
-                placeholderTextColor={"#e2e4e8"}
-                selectionColor={"#e2e4e8"}
-                autoCorrect={false}
-              />
-            </KeyboardAvoiderView>
-          </View>
+                <TextInput
+                  style={styles(shoppingListFlexSize).addItemInput}
+                  onChangeText={(e) => setNewItem(e)}
+                  placeholder="Eg: Apples"
+                  placeholderTextColor={"#e2e4e8"}
+                  selectionColor={"#e2e4e8"}
+                  autoCorrect={false}
+                />
+              </View>
+              <View style={styles(shoppingListFlexSize).addAvailableItemBottom}>
+                <FlatList
+                  data={Object.values(Category)}
+                  renderItem={({ item }) => (
+                    <View style={styles(shoppingListFlexSize).itemCell}>
+                      <ItemButton
+                        onLongPress={() => null}
+                        onPress={() =>
+                          addItemToAvailableItems(new Item(newItem, item))
+                        }
+                        title={item}
+                        buttonColour="#2369bd"
+                        textColour="#ffffff"
+                      />
+                    </View>
+                  )}
+                  numColumns={3}
+                />
+              </View>
+            </View>
+          </KeyboardAvoiderView>
         </View>
       ) : null}
 
@@ -143,12 +156,28 @@ export const styles = (shoppingListFlexSize: number) =>
       flex: 6,
     },
     addAvailableItem: {
+      flex: 1,
+      backgroundColor: "#03a2f3",
+      borderRadius: 10,
+      padding: 4,
+      margin: 5,
+    },
+    addAvailableItemTop: {
       flexDirection: "row",
       flex: 1,
       backgroundColor: "#03a2f3",
       borderRadius: 10,
       padding: 4,
       margin: 5,
+    },
+    addAvailableItemBottom: {
+      flexDirection: "row",
+      flex: 1,
+      backgroundColor: "#03a2f3",
+    },
+    itemCell: {
+      margin: 0,
+      width: "33%",
     },
     addItemInput: {
       flex: 3,

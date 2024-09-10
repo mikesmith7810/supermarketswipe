@@ -1,7 +1,5 @@
 import { FlatList, StyleSheet, View } from "react-native";
-import React, { Fragment } from "react";
 import { Item } from "./Item";
-import CategoryItemButton from "./CategoryItemButton";
 import ItemButton from "./ItemButton";
 
 interface GridItemSelectorProps {
@@ -12,16 +10,16 @@ interface GridItemSelectorProps {
 }
 
 export default function GridItemSelector({
-  availableItems,
-  setAvailableItems,
   setShoppingItems,
   shoppingItems,
+  setAvailableItems,
+  availableItems,
 }: GridItemSelectorProps) {
   function addItemToShoppingList(item: Item) {
     if (
       !shoppingItems.some((shoppingItem) => shoppingItem.name === item.name)
     ) {
-      setShoppingItems((shoppingItems: string[]) => [item, ...shoppingItems]);
+      setShoppingItems((shoppingItems: Item[]) => [item, ...shoppingItems]);
     }
   }
 

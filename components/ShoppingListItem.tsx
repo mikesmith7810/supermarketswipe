@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import ItemButton from "./ItemButton";
 import { Item } from "./Item";
-import { View } from "./Themed";
-import CategoryItemButton from "./CategoryItemButton";
 
 interface ShoppingListItemProps {
   shoppingItem: Item;
@@ -22,10 +20,10 @@ export default function ShoppingListItem({
   }
 
   return (
-    <CategoryItemButton
+    <ItemButton
       onLongPress={() => deleteItemFromShoppingList(shoppingItem)}
       onPress={() => setBought(!bought)}
-      item={shoppingItem}
+      title={shoppingItem.name}
       buttonColour={bought ? "lightgray" : "lightgreen"}
       textColour={bought ? "gray" : "black"}
     />

@@ -1,38 +1,41 @@
-import { FlatList } from "react-native";
-import React from "react";
+import { FlatList, Text } from "react-native";
+import React, { Fragment } from "react";
 import ShoppingListItem from "./ShoppingListItem";
 import { Item } from "./Item";
-import { Category } from "./Category";
-import { CategoryGroup } from "@/app/(tabs)";
+import { View } from "./Themed";
 
 interface ShoppingListProps {
   shoppingItems: Item[];
   setShoppingItems: any;
-  categoryOrder: number[];
-  shoppingItemsByCategory: CategoryGroup[];
+  categoryOrder: string[];
 }
 
 export default function ShoppingList({
   shoppingItems,
   setShoppingItems,
   categoryOrder,
-  shoppingItemsByCategory,
 }: ShoppingListProps) {
   return (
-    // <FlatList
-    //   data={shoppingItemsByCategory}
-    //   renderItem={(categoryGroup) => categoryGroup.c}
-    // />
-
-    <FlatList
-      data={shoppingItems}
-      renderItem={({ item }) => (
-        <ShoppingListItem
-          shoppingItem={item}
-          shoppingItems={shoppingItems}
-          setShoppingItems={setShoppingItems}
-        />
-      )}
-    />
+    <Fragment>
+      {categoryOrder.map((category) => {
+        return (
+          <View>
+            <View>
+              <Text>{category}</Text>
+            </View>
+            <FlatList
+              data={shoppingItems.filter((item) => item.category === category)}
+              renderItem={({ item }) => (
+                <ShoppingListItem
+                  shoppingItem={item}
+                  shoppingItems={shoppingItems}
+                  setShoppingItems={setShoppingItems}
+                />
+              )}
+            />
+          </View>
+        );
+      })}
+    </Fragment>
   );
 }
