@@ -24,7 +24,11 @@ export default function TabOneList() {
     new Item("Apples", Category.FruitVeg),
   ]);
 
-  const categoryOrder = [Category.Frozen, Category.Bakery, Category.FruitVeg];
+  const [categoryOrder, setCategoryOrder] = useState([
+    Category.Frozen,
+    Category.Bakery,
+    Category.FruitVeg,
+  ]);
 
   function addItemToAvailableItems(item: Item) {
     setAvailableItems([item, ...availableItems].sort());

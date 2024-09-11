@@ -54,7 +54,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
-          title: "Settings",
+          title: "Supermarket Routes",
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="retweet" color={color} />
           ),
