@@ -8,12 +8,22 @@ import { Item } from "@/components/Item";
 import { KeyboardAvoiderView } from "@good-react-native/keyboard-avoider";
 import { Category } from "@/components/Category";
 import ItemButton from "@/components/ItemButton";
+import { setMike } from "./_layout";
+import { mike } from "./_layout";
+import { useContext } from "react";
+import { DataContext } from "@/components/DataContext";
 
 export interface CategoryGroup {
   category: Category;
   categoryItems: Item[];
 }
 export default function TabOneList() {
+  const context = useContext(DataContext);
+  if (!context) throw new Error("DataContext is undefined");
+
+  const { sharedData } = context;
+  const { setSharedData } = context;
+
   const [shoppingItems, setShoppingItems] = useState([]);
   const [showAvailableItems, setShowAvailableItems] = useState(true);
   const [showShoppingList, setShowShoppingList] = useState(true);
@@ -111,7 +121,16 @@ export default function TabOneList() {
           </KeyboardAvoiderView>
         </View>
       ) : null}
-
+      <View style={styles(shoppingListFlexSize).selectedStore}>
+        <Text>{sharedData}</Text>
+        <ItemButton
+          onPress={() => setSharedData("mike")}
+          onLongPress={undefined}
+          title={"Update"}
+          buttonColour={"lightgreen"}
+          textColour={"black"}
+        />
+      </View>
       <View style={styles(shoppingListFlexSize).viewButtons}>
         <View style={styles(shoppingListFlexSize).clearList}>
           <ClearList setShoppingItems={setShoppingItems} />
@@ -151,7 +170,7 @@ export const styles = (shoppingListFlexSize: number) =>
       width: "80%",
     },
     itemSelector: {
-      flex: 4,
+      flex: 5,
       justifyContent: "center",
       marginTop: 15,
       width: "90%",
@@ -238,5 +257,9 @@ export const styles = (shoppingListFlexSize: number) =>
       fontWeight: "bold",
       width: "80%",
       margin: 5,
+    },
+    selectedStore: {
+      flex: 1,
+      justifyContent: "center",
     },
   });

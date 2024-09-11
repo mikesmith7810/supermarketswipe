@@ -8,8 +8,16 @@ import React, { useState } from "react";
 import { SupermarketRoute } from "@/components/SupermarketRoute";
 import SupermarketRouteItemButton from "@/components/SupermarketRouteItemButton";
 import SupermarketRouteView from "@/components/SupermarketRouteView";
-
+import { setMike } from "./_layout";
+import { mike } from "./_layout";
+import { useContext } from "react";
+import { DataContext } from "@/components/DataContext";
 export default function TabTwoScreen() {
+  const context = useContext(DataContext);
+  if (!context) throw new Error("DataContext is undefined");
+
+  const { sharedData } = context;
+
   const [supermarketRoutes, setSupermarketRoutes] = useState<
     SupermarketRoute[]
   >([]);
@@ -31,6 +39,7 @@ export default function TabTwoScreen() {
     <View style={styles.container}>
       <View style={styles.createSupermarketRoute}>
         <View style={styles.createSupermarketRouteTop}>
+          <Text>{mike}</Text>
           <Text style={styles.addItemInputLabel}> Name :</Text>
           <TextInput
             style={styles.addItemInput}
@@ -85,14 +94,14 @@ export default function TabTwoScreen() {
             <ItemButton
               onPress={() => addRouteToSupermarketRoutes()}
               onLongPress={undefined}
-              title="Create"
+              title="Xreate"
               buttonColour={"#978edd"}
               textColour={"white"}
             />
           </View>
         </View>
         <View style={styles.existingSupermarketRoutesActualTitle}>
-          <Text style={styles.addItemInputLabel}>Actual Routes</Text>
+          <Text style={styles.addItemInputLabel}>{sharedData}</Text>
         </View>
         <View style={styles.existingSupermarketRoutesActual}>
           <FlatList
