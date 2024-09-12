@@ -8,10 +8,9 @@ import { Item } from "@/components/Item";
 import { KeyboardAvoiderView } from "@good-react-native/keyboard-avoider";
 import { Category } from "@/components/Category";
 import ItemButton from "@/components/ItemButton";
-import { setMike } from "./_layout";
-import { mike } from "./_layout";
 import { useContext } from "react";
 import { DataContext } from "@/components/DataContext";
+import { SupermarketRoute } from "@/components/SupermarketRoute";
 
 export interface CategoryGroup {
   category: Category;
@@ -21,8 +20,12 @@ export default function TabOneList() {
   const context = useContext(DataContext);
   if (!context) throw new Error("DataContext is undefined");
 
-  const { sharedData } = context;
-  const { setSharedData } = context;
+  const {
+    currentStore,
+    setCurrentStore,
+    supermarketRoutes,
+    setSupermarketRoutes,
+  } = context;
 
   const [shoppingItems, setShoppingItems] = useState([]);
   const [showAvailableItems, setShowAvailableItems] = useState(true);
@@ -42,6 +45,13 @@ export default function TabOneList() {
 
   function addItemToAvailableItems(item: Item) {
     setAvailableItems([item, ...availableItems].sort());
+  }
+
+  function setCurrentStoreAndReorderCategories(
+    supermarketRoute: SupermarketRoute
+  ) {
+    setCurrentStore(supermarketRoute.name);
+    setCategoryOrder(supermarketRoute.route);
   }
 
   const [newItem, setNewItem] = useState<string>("AA");
@@ -122,14 +132,39 @@ export default function TabOneList() {
         </View>
       ) : null}
       <View style={styles(shoppingListFlexSize).selectedStore}>
-        <Text>{sharedData}</Text>
-        <ItemButton
-          onPress={() => setSharedData("mike")}
-          onLongPress={undefined}
-          title={"Update"}
-          buttonColour={"lightgreen"}
-          textColour={"black"}
-        />
+        <View style={styles(shoppingListFlexSize).selectedStoreUpdate}>
+          <ItemButton
+            onPress={() => setCurrentStore("Lidl")}
+            onLongPress={undefined}
+            title={"Update"}
+            buttonColour={"lightgreen"}
+            textColour={"black"}
+          />
+        </View>
+        <View style={styles(shoppingListFlexSize).selectedStoreList}>
+          <FlatList
+            data={supermarketRoutes}
+            renderItem={({ item }) => (
+              <ItemButton
+                onPress={() => setCurrentStoreAndReorderCategories(item)}
+                onLongPress={undefined}
+                title={item.name}
+                buttonColour={"yellow"}
+                textColour={"black"}
+              />
+            )}
+            numColumns={1}
+          />
+        </View>
+        <View style={styles(shoppingListFlexSize).selectedStoreName}>
+          <ItemButton
+            onPress={undefined}
+            onLongPress={undefined}
+            title={currentStore}
+            buttonColour={"pink"}
+            textColour={"black"}
+          />
+        </View>
       </View>
       <View style={styles(shoppingListFlexSize).viewButtons}>
         <View style={styles(shoppingListFlexSize).clearList}>
@@ -260,6 +295,24 @@ export const styles = (shoppingListFlexSize: number) =>
     },
     selectedStore: {
       flex: 1,
+      flexDirection: "row",
       justifyContent: "center",
+      borderWidth: 1,
+      width: "80%",
+    },
+    selectedStoreUpdate: {
+      flex: 1,
+      justifyContent: "center",
+      borderWidth: 1,
+    },
+    selectedStoreList: {
+      flex: 1,
+      justifyContent: "center",
+      borderWidth: 1,
+    },
+    selectedStoreName: {
+      flex: 1,
+      justifyContent: "center",
+      borderWidth: 1,
     },
   });

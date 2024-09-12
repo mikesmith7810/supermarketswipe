@@ -16,11 +16,13 @@ export default function TabTwoScreen() {
   const context = useContext(DataContext);
   if (!context) throw new Error("DataContext is undefined");
 
-  const { sharedData } = context;
 
-  const [supermarketRoutes, setSupermarketRoutes] = useState<
-    SupermarketRoute[]
-  >([]);
+  const {
+    currentStore,
+    setCurrentStore,
+    supermarketRoutes,
+    setSupermarketRoutes,
+  } = context;
 
   const [supermarketName, setSupermarketName] = useState("");
 
@@ -69,9 +71,6 @@ export default function TabTwoScreen() {
       </View>
 
       <View style={styles.existingSupermarketRoutes}>
-        <View style={styles.existingSupermarketRoutesTitle}>
-          <Text style={styles.addItemInputLabel}>Existing Routes</Text>
-        </View>
         <View style={styles.existingSupermarketRoutesTempTitle}>
           <Text style={styles.addItemInputLabel}>Temporary Route</Text>
         </View>
@@ -101,7 +100,7 @@ export default function TabTwoScreen() {
           </View>
         </View>
         <View style={styles.existingSupermarketRoutesActualTitle}>
-          <Text style={styles.addItemInputLabel}>{sharedData}</Text>
+          <Text style={styles.addItemInputLabel}>Routes</Text>
         </View>
         <View style={styles.existingSupermarketRoutesActual}>
           <FlatList
