@@ -121,6 +121,7 @@ export default function TabOneList() {
                         title={item}
                         buttonColour="#2369bd"
                         textColour="#ffffff"
+                        fontSize={14}
                       />
                     </View>
                   )}
@@ -139,6 +140,7 @@ export default function TabOneList() {
             title={"Update"}
             buttonColour={"lightgreen"}
             textColour={"black"}
+            fontSize={14}
           />
         </View>
         <View style={styles(shoppingListFlexSize).selectedStoreList}>
@@ -151,6 +153,7 @@ export default function TabOneList() {
                 title={item.name}
                 buttonColour={"yellow"}
                 textColour={"black"}
+                fontSize={14}
               />
             )}
             numColumns={1}
@@ -163,6 +166,7 @@ export default function TabOneList() {
             title={currentStore}
             buttonColour={"pink"}
             textColour={"black"}
+            fontSize={14}
           />
         </View>
       </View>

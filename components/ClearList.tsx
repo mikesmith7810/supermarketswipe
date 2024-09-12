@@ -17,6 +17,7 @@ export default function ClearList({ setShoppingItems }: ClearListProps) {
       title="Clear List"
       buttonColour="#e73a40"
       textColour="#ffffff"
+      fontSize={14}
     />
   );
 }

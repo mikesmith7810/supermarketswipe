@@ -33,6 +33,7 @@ export default function HideItems({
       buttonColour="#978edd"
       textColour="#ffffff"
       onLongPress={undefined}
+      fontSize={14}
     />
   );
 }

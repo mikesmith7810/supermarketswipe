@@ -23,6 +23,7 @@ export default function SupermarketRouteView({
               title={item}
               buttonColour="red"
               textColour="white"
+              fontSize={14}
             />
           )}
           numColumns={3}

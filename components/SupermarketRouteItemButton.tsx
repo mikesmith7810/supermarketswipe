@@ -3,7 +3,7 @@ import ItemButton from "./ItemButton";
 import { Item } from "./Item";
 import { SupermarketRoute } from "./SupermarketRoute";
 import { Category } from "./Category";
-import { View, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 interface SupermarketRouteItemButtonProps {
   category: Category;
@@ -31,12 +31,21 @@ export default function SupermarketRouteItemButton({
   }
 
   return (
-    <ItemButton
-      onLongPress={() => null}
-      onPress={() => addCategoryToTemporarySupermarketRoute(category)}
-      title={category}
-      buttonColour={added ? "lightgreen" : "lightgray"}
-      textColour={added ? "black" : "gray"}
-    />
+    <View style={styles.button}>
+      <ItemButton
+        onLongPress={() => null}
+        onPress={() => addCategoryToTemporarySupermarketRoute(category)}
+        title={category}
+        buttonColour={added ? "lightgreen" : "lightgray"}
+        textColour={added ? "black" : "gray"}
+        fontSize={10}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    width: "80%",
+  },
+});

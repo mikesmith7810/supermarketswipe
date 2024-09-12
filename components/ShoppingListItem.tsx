@@ -26,6 +26,7 @@ export default function ShoppingListItem({
       title={shoppingItem.name}
       buttonColour={bought ? "lightgray" : "lightgreen"}
       textColour={bought ? "gray" : "black"}
+      fontSize={14}
     />
   );
 }

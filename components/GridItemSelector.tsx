@@ -40,6 +40,7 @@ export default function GridItemSelector({
             title={item.name}
             buttonColour="#03a2f3"
             textColour="#ffffff"
+            fontSize={14}
           />
         </View>
       )}
