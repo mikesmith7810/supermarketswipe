@@ -78,13 +78,11 @@ const styles = StyleSheet.create({
   createSupermarketRouteBottom: {
     flex: 14,
     backgroundColor: "#03a2f3",
-    borderWidth: 1,
   },
   existingSupermarketRoutesTemp: {
     flex: 4,
     flexDirection: "row",
     backgroundColor: "#03a2f3",
-    borderWidth: 1,
   },
   existingSupermarketRoutesButtonsTemp: {
     flex: 2,
@@ -97,7 +95,6 @@ const styles = StyleSheet.create({
   existingSupermarketRoutesActual: {
     flex: 6,
     flexDirection: "row",
-    borderWidth: 1,
     backgroundColor: "#03a2f3",
   },
 });

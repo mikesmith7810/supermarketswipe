@@ -25,6 +25,8 @@ export default function TabOneList() {
     setCurrentStore,
     supermarketRoutes,
     setSupermarketRoutes,
+    categoryOrder,
+    setCategoryOrder,
   } = context;
 
   const [shoppingItems, setShoppingItems] = useState([]);
@@ -37,21 +39,8 @@ export default function TabOneList() {
     new Item("Apples", Category.FruitVeg),
   ]);
 
-  const [categoryOrder, setCategoryOrder] = useState([
-    Category.Frozen,
-    Category.Bakery,
-    Category.FruitVeg,
-  ]);
-
   function addItemToAvailableItems(item: Item) {
     setAvailableItems([item, ...availableItems].sort());
-  }
-
-  function setCurrentStoreAndReorderCategories(
-    supermarketRoute: SupermarketRoute
-  ) {
-    setCurrentStore(supermarketRoute.name);
-    setCategoryOrder(supermarketRoute.route);
   }
 
   const [newItem, setNewItem] = useState<string>("AA");
@@ -64,9 +53,16 @@ export default function TabOneList() {
             No Shopping List Created!
           </Text>
         ) : (
-          <Text style={styles(shoppingListFlexSize).title}>
-            Your Shopping List
-          </Text>
+          <View style={styles(shoppingListFlexSize).selectedStoreName}>
+            <ItemButton
+              onPress={undefined}
+              onLongPress={undefined}
+              title={currentStore}
+              buttonColour={"pink"}
+              textColour={"black"}
+              fontSize={14}
+            />
+          </View>
         )}
       </View>
 
@@ -132,44 +128,7 @@ export default function TabOneList() {
           </KeyboardAvoiderView>
         </View>
       ) : null}
-      <View style={styles(shoppingListFlexSize).selectedStore}>
-        <View style={styles(shoppingListFlexSize).selectedStoreUpdate}>
-          <ItemButton
-            onPress={() => setCurrentStore("Lidl")}
-            onLongPress={undefined}
-            title={"Update"}
-            buttonColour={"lightgreen"}
-            textColour={"black"}
-            fontSize={14}
-          />
-        </View>
-        <View style={styles(shoppingListFlexSize).selectedStoreList}>
-          <FlatList
-            data={supermarketRoutes}
-            renderItem={({ item }) => (
-              <ItemButton
-                onPress={() => setCurrentStoreAndReorderCategories(item)}
-                onLongPress={undefined}
-                title={item.name}
-                buttonColour={"yellow"}
-                textColour={"black"}
-                fontSize={14}
-              />
-            )}
-            numColumns={1}
-          />
-        </View>
-        <View style={styles(shoppingListFlexSize).selectedStoreName}>
-          <ItemButton
-            onPress={undefined}
-            onLongPress={undefined}
-            title={currentStore}
-            buttonColour={"pink"}
-            textColour={"black"}
-            fontSize={14}
-          />
-        </View>
-      </View>
+
       <View style={styles(shoppingListFlexSize).viewButtons}>
         <View style={styles(shoppingListFlexSize).clearList}>
           <ClearList setShoppingItems={setShoppingItems} />

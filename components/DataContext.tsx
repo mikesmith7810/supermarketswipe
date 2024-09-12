@@ -1,5 +1,6 @@
 import React, { createContext, useState, ReactNode } from "react";
 import { SupermarketRoute } from "./SupermarketRoute";
+import { Category } from "./Category";
 
 interface DataContextProps {
   currentStore: string;
@@ -8,6 +9,8 @@ interface DataContextProps {
   setSupermarketRoutes: React.Dispatch<
     React.SetStateAction<SupermarketRoute[]>
   >;
+  categoryOrder: Category[];
+  setCategoryOrder: React.Dispatch<React.SetStateAction<Category[]>>;
 }
 
 export const DataContext = createContext<DataContextProps | undefined>(
@@ -15,11 +18,17 @@ export const DataContext = createContext<DataContextProps | undefined>(
 );
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [currentStore, setCurrentStore] = useState<string>("Unknown");
+  const [currentStore, setCurrentStore] = useState<string>("Not Set");
 
   const [supermarketRoutes, setSupermarketRoutes] = useState<
     SupermarketRoute[]
   >([]);
+
+  const [categoryOrder, setCategoryOrder] = useState([
+    Category.Frozen,
+    Category.Bakery,
+    Category.FruitVeg,
+  ]);
 
   return (
     <DataContext.Provider
@@ -28,6 +37,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
         setCurrentStore,
         supermarketRoutes,
         setSupermarketRoutes,
+        categoryOrder,
+        setCategoryOrder,
       }}
     >
       {children}

@@ -16,7 +16,7 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
-export const [mike, setMike] = useState("Hello");
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -57,10 +57,17 @@ export default function TabLayout() {
         <Tabs.Screen
           name="two"
           options={{
-            title: "Supermarket Routes",
+            title: "Create Supermarket Route",
             tabBarIcon: ({ color }) => (
               <TabBarIcon name="retweet" color={color} />
             ),
+          }}
+        />
+        <Tabs.Screen
+          name="three"
+          options={{
+            title: "Choose Store",
+            tabBarIcon: ({ color }) => <TabBarIcon name="map" color={color} />,
           }}
         />
       </Tabs>

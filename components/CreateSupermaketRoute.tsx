@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#03a2f3",
     borderRadius: 10,
     padding: 4,
-    borderWidth: 1,
   },
   createSupermarketRouteNameInput: {
     flex: 2,
@@ -84,6 +83,5 @@ const styles = StyleSheet.create({
   createSupermarketRouteBottom: {
     flex: 14,
     backgroundColor: "#03a2f3",
-    borderWidth: 1,
   },
 });
