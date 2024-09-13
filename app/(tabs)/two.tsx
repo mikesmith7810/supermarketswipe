@@ -39,6 +39,7 @@ export default function TabTwoScreen() {
           setSupermarketRoutes={setSupermarketRoutes}
           supermarketRoutes={supermarketRoutes}
           supermarketName={supermarketName}
+          setCurrentStore={setCurrentStore}
         />
       </View>
     </View>

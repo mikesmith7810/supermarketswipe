@@ -57,7 +57,7 @@ export default function TabOneList() {
             <ItemButton
               onPress={undefined}
               onLongPress={undefined}
-              title={currentStore}
+              title={"Current Store : " + currentStore}
               buttonColour={"pink"}
               textColour={"black"}
               fontSize={14}
@@ -161,7 +161,6 @@ export const styles = (shoppingListFlexSize: number) =>
       flex: shoppingListFlexSize,
       justifyContent: "flex-start",
       width: "80%",
-      borderWidth: 1,
     },
     addItem: {
       flex: shoppingListFlexSize,
@@ -261,7 +260,6 @@ export const styles = (shoppingListFlexSize: number) =>
       flex: 1,
       flexDirection: "row",
       justifyContent: "center",
-      borderWidth: 1,
       width: "80%",
     },
     selectedStoreUpdate: {
@@ -277,6 +275,5 @@ export const styles = (shoppingListFlexSize: number) =>
     selectedStoreName: {
       flex: 1,
       justifyContent: "center",
-      borderWidth: 1,
     },
   });

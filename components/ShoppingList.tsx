@@ -1,4 +1,4 @@
-import { FlatList, Text } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import React, { Fragment } from "react";
 import ShoppingListItem from "./ShoppingListItem";
 import { Item } from "./Item";
@@ -16,37 +16,46 @@ export default function ShoppingList({
   categoryOrder,
 }: ShoppingListProps) {
   return (
-    <Fragment>
-      {categoryOrder.map((category) => {
-        return (
-          <View>
-            <FlatList
-              data={shoppingItems.filter((item) => item.category === category)}
-              renderItem={({ item }) => (
-                <ShoppingListItem
-                  shoppingItem={item}
-                  shoppingItems={shoppingItems}
-                  setShoppingItems={setShoppingItems}
-                  category={item.category}
-                />
-              )}
-            />
-          </View>
-        );
-      })}
-
-      {shoppingItems
-        .filter((item) => !categoryOrder.includes(item.category))
-        .map((item) => {
+    <ScrollView>
+      <Fragment>
+        {categoryOrder.map((category, index) => {
           return (
-            <ShoppingListItem
-              shoppingItem={item}
-              shoppingItems={shoppingItems}
-              setShoppingItems={setShoppingItems}
-              category="Unknown"
-            />
+            <View key={index} style={styles.shoppingItem}>
+              {shoppingItems
+                .filter((item) => item.category === category)
+                .map((item, index) => (
+                  <ShoppingListItem
+                    key={index}
+                    shoppingItem={item}
+                    shoppingItems={shoppingItems}
+                    setShoppingItems={setShoppingItems}
+                    category={item.category}
+                  />
+                ))}
+            </View>
           );
         })}
-    </Fragment>
+
+        {shoppingItems
+          .filter((item) => !categoryOrder.includes(item.category))
+          .map((item, index) => {
+            return (
+              <ShoppingListItem
+                key={index}
+                shoppingItem={item}
+                shoppingItems={shoppingItems}
+                setShoppingItems={setShoppingItems}
+                category="Unknown"
+              />
+            );
+          })}
+      </Fragment>
+    </ScrollView>
   );
 }
+
+export const styles = StyleSheet.create({
+  shoppingItem: {
+    backgroundColor: "ghostwhite",
+  },
+});

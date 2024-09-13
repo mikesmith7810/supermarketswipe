@@ -2,7 +2,6 @@ import { View, TextInput, FlatList, StyleSheet } from "react-native";
 import { Category } from "./Category";
 import ItemButton from "./ItemButton";
 import { Fragment } from "react";
-import SupermarketRouteView from "./SupermarketRouteView";
 import { SupermarketRoute } from "./SupermarketRoute";
 
 interface TempSupermarketRouteProps {
@@ -10,6 +9,7 @@ interface TempSupermarketRouteProps {
   setSupermarketRoutes: any;
   supermarketRoutes: SupermarketRoute[];
   supermarketName: string;
+  setCurrentStore: any;
 }
 
 export default function TempSupermarketRoute({
@@ -17,6 +17,7 @@ export default function TempSupermarketRoute({
   setSupermarketRoutes,
   supermarketRoutes,
   supermarketName,
+  setCurrentStore,
 }: TempSupermarketRouteProps) {
   function addRouteToSupermarketRoutes() {
     setSupermarketRoutes([
@@ -32,6 +33,14 @@ export default function TempSupermarketRoute({
           onPress={() => addRouteToSupermarketRoutes()}
           onLongPress={undefined}
           title="Create"
+          buttonColour={"#978edd"}
+          textColour={"white"}
+          fontSize={12}
+        />
+        <ItemButton
+          onPress={() => setCurrentStore(supermarketName)}
+          onLongPress={undefined}
+          title="Set Store"
           buttonColour={"#978edd"}
           textColour={"white"}
           fontSize={12}
