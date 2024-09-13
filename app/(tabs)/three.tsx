@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "ghostwhite",
   },
   existingSupermarketRouteTop: {
     flexDirection: "row",
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   existingSupermarketRoutes: {
-    flex: 10,
+    flex: 9,
     width: "80%",
     backgroundColor: "#03a2f3",
     borderRadius: 10,

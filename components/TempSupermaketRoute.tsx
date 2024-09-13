@@ -1,8 +1,9 @@
-import { View, TextInput, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { Category } from "./Category";
 import ItemButton from "./ItemButton";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { SupermarketRoute } from "./SupermarketRoute";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface TempSupermarketRouteProps {
   tempSupermarketRoute: Category[];
@@ -19,11 +20,22 @@ export default function TempSupermarketRoute({
   supermarketName,
   setCurrentStore,
 }: TempSupermarketRouteProps) {
-  function addRouteToSupermarketRoutes() {
-    setSupermarketRoutes([
+  async function addRouteToSupermarketRoutes() {
+    const newSupermarketRoutes = [
       ...supermarketRoutes,
       new SupermarketRoute(supermarketName, tempSupermarketRoute),
-    ]);
+    ];
+
+    setSupermarketRoutes(newSupermarketRoutes);
+
+    try {
+      await AsyncStorage.setItem(
+        "supermarketroutes",
+        JSON.stringify(newSupermarketRoutes)
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -47,6 +59,7 @@ export default function TempSupermarketRoute({
         />
       </View>
       <View style={styles.createSupermarketRouteBottom}>
+        <Text>Stored length : {supermarketRoutes.length}</Text>
         <FlatList
           data={tempSupermarketRoute}
           renderItem={({ item }) => (

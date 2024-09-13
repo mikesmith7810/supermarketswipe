@@ -1,6 +1,7 @@
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { SupermarketRoute } from "./SupermarketRoute";
 import { Category } from "./Category";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface DataContextProps {
   currentStore: string;
@@ -29,6 +30,24 @@ export function DataProvider({ children }: { children: ReactNode }) {
     Category.Bakery,
     Category.FruitVeg,
   ]);
+
+  async function loadSupermarketRoutes() {
+    try {
+      const rawSavedSupermarketRoutes = await AsyncStorage.getItem(
+        "supermarketroutes"
+      );
+
+      if (rawSavedSupermarketRoutes != null) {
+        setSupermarketRoutes(JSON.parse(rawSavedSupermarketRoutes));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    loadSupermarketRoutes();
+    // AsyncStorage.clear();
+  }, []);
 
   return (
     <DataContext.Provider
