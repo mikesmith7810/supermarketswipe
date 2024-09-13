@@ -18,7 +18,7 @@ export const DataContext = createContext<DataContextProps | undefined>(
 );
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [currentStore, setCurrentStore] = useState<string>("Not Set");
+  const [currentStore, setCurrentStore] = useState<string>("Store Not Set");
 
   const [supermarketRoutes, setSupermarketRoutes] = useState<
     SupermarketRoute[]

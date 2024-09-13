@@ -20,9 +20,6 @@ export default function ShoppingList({
       {categoryOrder.map((category) => {
         return (
           <View>
-            <View>
-              <Text>{category}</Text>
-            </View>
             <FlatList
               data={shoppingItems.filter((item) => item.category === category)}
               renderItem={({ item }) => (
@@ -30,12 +27,26 @@ export default function ShoppingList({
                   shoppingItem={item}
                   shoppingItems={shoppingItems}
                   setShoppingItems={setShoppingItems}
+                  category={item.category}
                 />
               )}
             />
           </View>
         );
       })}
+
+      {shoppingItems
+        .filter((item) => !categoryOrder.includes(item.category))
+        .map((item) => {
+          return (
+            <ShoppingListItem
+              shoppingItem={item}
+              shoppingItems={shoppingItems}
+              setShoppingItems={setShoppingItems}
+              category="Unknown"
+            />
+          );
+        })}
     </Fragment>
   );
 }

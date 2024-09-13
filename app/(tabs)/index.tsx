@@ -161,6 +161,7 @@ export const styles = (shoppingListFlexSize: number) =>
       flex: shoppingListFlexSize,
       justifyContent: "flex-start",
       width: "80%",
+      borderWidth: 1,
     },
     addItem: {
       flex: shoppingListFlexSize,

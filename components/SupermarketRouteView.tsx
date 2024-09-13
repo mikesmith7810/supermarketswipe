@@ -36,6 +36,7 @@ export default function SupermarketRouteView({
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
           {supermarketRoute.route.map((item, index) => (
             <ItemButton
+              key={index}
               onPress={undefined}
               onLongPress={undefined}
               title={item}
@@ -52,8 +53,6 @@ export default function SupermarketRouteView({
 
 const styles = StyleSheet.create({
   routeView: {
-    backgroundColor: "#03a2f3",
-    borderWidth: 1,
     margin: 10,
   },
   routeTitle: {
