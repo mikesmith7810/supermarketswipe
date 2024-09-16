@@ -1,9 +1,10 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import { Category } from "./Category";
 import ItemButton from "./ItemButton";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { SupermarketRoute } from "./SupermarketRoute";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { persistData } from "./DataContext";
 
 interface TempSupermarketRouteProps {
   tempSupermarketRoute: Category[];
@@ -20,7 +21,7 @@ export default function TempSupermarketRoute({
   supermarketName,
   setCurrentStore,
 }: TempSupermarketRouteProps) {
-  async function addRouteToSupermarketRoutes() {
+  function addRouteToSupermarketRoutes() {
     if (
       !supermarketRoutes.some(
         (supermarketRoute) => supermarketRoute.name === supermarketName
@@ -33,14 +34,7 @@ export default function TempSupermarketRoute({
 
       setSupermarketRoutes(newSupermarketRoutes);
 
-      try {
-        await AsyncStorage.setItem(
-          "supermarketRoutes",
-          JSON.stringify(newSupermarketRoutes)
-        );
-      } catch (error) {
-        console.log(error);
-      }
+      persistData(newSupermarketRoutes, "supermarketRoutes");
     } else {
       alert("Store already exists.");
     }

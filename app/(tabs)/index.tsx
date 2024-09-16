@@ -10,8 +10,6 @@ import { Category } from "@/components/Category";
 import ItemButton from "@/components/ItemButton";
 import { useContext } from "react";
 import { DataContext, persistData } from "@/components/DataContext";
-import { SupermarketRoute } from "@/components/SupermarketRoute";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export interface CategoryGroup {
   category: Category;
@@ -38,7 +36,7 @@ export default function TabOneList() {
   const [showShoppingList, setShowShoppingList] = useState(true);
   const [shoppingListFlexSize, setShoppingListFlexSize] = useState(3);
 
-  async function addItemToAvailableItems(item: Item) {
+  function addItemToAvailableItems(item: Item) {
     const newAvailableItems = [item, ...availableItems].sort();
 
     setAvailableItems(newAvailableItems);
@@ -159,6 +157,7 @@ export const styles = (shoppingListFlexSize: number) =>
     header: {
       flex: 1,
       justifyContent: "center",
+      margin: 10,
     },
     shoppingList: {
       flex: shoppingListFlexSize,
@@ -249,8 +248,19 @@ export const styles = (shoppingListFlexSize: number) =>
       flex: 2,
       justifyContent: "center",
     },
+    titleHolder: {
+      alignItems: "center",
+    },
     title: {
+      flex: 2,
       fontSize: 20,
+      fontWeight: "bold",
+    },
+    subtitle: {
+      flex: 3,
+      fontSize: 15,
+      width: "90%",
+      margin: 10,
       fontWeight: "bold",
     },
     addItemTitle: {

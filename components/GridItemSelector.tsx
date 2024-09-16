@@ -1,7 +1,6 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import { Item } from "./Item";
 import ItemButton from "./ItemButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistData } from "./DataContext";
 
 interface GridItemSelectorProps {
@@ -17,7 +16,7 @@ export default function GridItemSelector({
   setAvailableItems,
   availableItems,
 }: GridItemSelectorProps) {
-  async function addItemToShoppingList(item: Item) {
+  function addItemToShoppingList(item: Item) {
     if (
       !shoppingItems.some((shoppingItem) => shoppingItem.name === item.name)
     ) {
@@ -29,7 +28,7 @@ export default function GridItemSelector({
     }
   }
 
-  async function deleteItemFromAvailableItems(item: Item) {
+  function deleteItemFromAvailableItems(item: Item) {
     const newAvailableItems = availableItems.filter(
       (availableItem) => availableItem.name !== item.name
     );
