@@ -2,6 +2,7 @@ import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { SupermarketRoute } from "./SupermarketRoute";
 import { Category } from "./Category";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Item } from "./Item";
 
 interface DataContextProps {
   currentStore: string;
@@ -12,11 +13,23 @@ interface DataContextProps {
   >;
   categoryOrder: Category[];
   setCategoryOrder: React.Dispatch<React.SetStateAction<Category[]>>;
+  availableItems: Item[];
+  setAvailableItems: React.Dispatch<React.SetStateAction<Item[]>>;
+  shoppingItems: Item[];
+  setShoppingItems: React.Dispatch<React.SetStateAction<Item[]>>;
 }
 
 export const DataContext = createContext<DataContextProps | undefined>(
   undefined
 );
+
+export async function persistData(data: any, key: string) {
+  try {
+    await AsyncStorage.setItem(key, JSON.stringify(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export function DataProvider({ children }: { children: ReactNode }) {
   const [currentStore, setCurrentStore] = useState<string>("Store Not Set");
@@ -31,10 +44,18 @@ export function DataProvider({ children }: { children: ReactNode }) {
     Category.FruitVeg,
   ]);
 
+  const [availableItems, setAvailableItems] = useState([
+    new Item("Bread", Category.Bakery),
+    new Item("Ice Cream", Category.Frozen),
+    new Item("Apples", Category.FruitVeg),
+  ]);
+
+  const [shoppingItems, setShoppingItems] = useState<Item[]>([]);
+
   async function loadSupermarketRoutes() {
     try {
       const rawSavedSupermarketRoutes = await AsyncStorage.getItem(
-        "supermarketroutes"
+        "supermarketRoutes"
       );
 
       if (rawSavedSupermarketRoutes != null) {
@@ -44,8 +65,35 @@ export function DataProvider({ children }: { children: ReactNode }) {
       console.log(err);
     }
   }
+
+  async function loadAvailableItems() {
+    try {
+      const rawAvailableItems = await AsyncStorage.getItem("availableItems");
+
+      if (rawAvailableItems != null) {
+        setAvailableItems(JSON.parse(rawAvailableItems));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function loadShoppingItems() {
+    try {
+      const rawShoppingItems = await AsyncStorage.getItem("shoppingItems");
+
+      if (rawShoppingItems != null) {
+        setShoppingItems(JSON.parse(rawShoppingItems));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     loadSupermarketRoutes();
+    loadAvailableItems();
+    loadShoppingItems();
     // AsyncStorage.clear();
   }, []);
 
@@ -58,6 +106,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
         setSupermarketRoutes,
         categoryOrder,
         setCategoryOrder,
+        availableItems,
+        setAvailableItems,
+        shoppingItems,
+        setShoppingItems,
       }}
     >
       {children}

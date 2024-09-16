@@ -2,16 +2,21 @@ import { View, StyleSheet, FlatList, Text, ScrollView } from "react-native";
 import { SupermarketRoute } from "./SupermarketRoute";
 import ItemButton from "./ItemButton";
 import { FadeInLeft } from "react-native-reanimated";
+import { persistData } from "./DataContext";
 
 interface SupermarketRouteViewProps {
   supermarketRoute: SupermarketRoute;
   setCurrentStore: any;
   setCategoryOrder: any;
+  supermarketRoutes: SupermarketRoute[];
+  setSupermarketRoutes: any;
 }
 export default function SupermarketRouteView({
   supermarketRoute,
   setCurrentStore,
   setCategoryOrder,
+  supermarketRoutes,
+  setSupermarketRoutes,
 }: SupermarketRouteViewProps) {
   function setCurrentStoreAndReorderCategories(
     supermarketRoute: SupermarketRoute
@@ -20,12 +25,24 @@ export default function SupermarketRouteView({
     setCategoryOrder(supermarketRoute.route);
   }
 
+  function deleteRouteFromSupermarketRoutes(
+    supermarketRoute: SupermarketRoute
+  ) {
+    const newSupermarketRoutes = supermarketRoutes.filter(
+      (e) => e !== supermarketRoute
+    );
+
+    setSupermarketRoutes(newSupermarketRoutes);
+
+    persistData(newSupermarketRoutes, "supermarketRoutes");
+  }
+
   return (
     <View style={styles.routeView}>
       <View style={styles.routeTitle}>
         <ItemButton
           onPress={() => setCurrentStoreAndReorderCategories(supermarketRoute)}
-          onLongPress={undefined}
+          onLongPress={() => deleteRouteFromSupermarketRoutes(supermarketRoute)}
           title={supermarketRoute.name}
           buttonColour="lightgreen"
           textColour="black"

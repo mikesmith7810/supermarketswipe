@@ -47,6 +47,8 @@ export default function TabTwoScreen() {
               supermarketRoute={item}
               setCurrentStore={setCurrentStore}
               setCategoryOrder={setCategoryOrder}
+              supermarketRoutes={supermarketRoutes}
+              setSupermarketRoutes={setSupermarketRoutes}
             />
           )}
           numColumns={1}

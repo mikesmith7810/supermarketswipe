@@ -84,6 +84,5 @@ const styles = StyleSheet.create({
     flex: 14,
     backgroundColor: "#03a2f3",
     alignItems: "stretch",
-    borderWidth: 1,
   },
 });

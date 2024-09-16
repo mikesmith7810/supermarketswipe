@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ItemButton from "./ItemButton";
 import { Item } from "./Item";
 import ShoppingListButton from "./ShoppingListButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { persistData } from "./DataContext";
 
 interface ShoppingListItemProps {
   shoppingItem: Item;
@@ -18,8 +20,12 @@ export default function ShoppingListItem({
 }: ShoppingListItemProps) {
   const [bought, setBought] = useState(false);
 
-  function deleteItemFromShoppingList(item: Item) {
-    setShoppingItems(shoppingItems.filter((e) => e !== item));
+  async function deleteItemFromShoppingList(item: Item) {
+    const newShoppingItems = shoppingItems.filter((e) => e !== item);
+
+    setShoppingItems(newShoppingItems);
+
+    persistData(newShoppingItems, "shoppingItems");
   }
 
   return (

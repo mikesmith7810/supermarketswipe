@@ -21,20 +21,28 @@ export default function TempSupermarketRoute({
   setCurrentStore,
 }: TempSupermarketRouteProps) {
   async function addRouteToSupermarketRoutes() {
-    const newSupermarketRoutes = [
-      ...supermarketRoutes,
-      new SupermarketRoute(supermarketName, tempSupermarketRoute),
-    ];
+    if (
+      !supermarketRoutes.some(
+        (supermarketRoute) => supermarketRoute.name === supermarketName
+      )
+    ) {
+      const newSupermarketRoutes = [
+        ...supermarketRoutes,
+        new SupermarketRoute(supermarketName, tempSupermarketRoute),
+      ];
 
-    setSupermarketRoutes(newSupermarketRoutes);
+      setSupermarketRoutes(newSupermarketRoutes);
 
-    try {
-      await AsyncStorage.setItem(
-        "supermarketroutes",
-        JSON.stringify(newSupermarketRoutes)
-      );
-    } catch (error) {
-      console.log(error);
+      try {
+        await AsyncStorage.setItem(
+          "supermarketRoutes",
+          JSON.stringify(newSupermarketRoutes)
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("Store already exists.");
     }
   }
 
@@ -59,7 +67,6 @@ export default function TempSupermarketRoute({
         />
       </View>
       <View style={styles.createSupermarketRouteBottom}>
-        <Text>Stored length : {supermarketRoutes.length}</Text>
         <FlatList
           data={tempSupermarketRoute}
           renderItem={({ item }) => (
@@ -75,15 +82,6 @@ export default function TempSupermarketRoute({
           numColumns={1}
         />
       </View>
-
-      {/* <View style={styles.existingSupermarketRoutesActual}>
-        <FlatList
-          data={supermarketRoutes}
-          renderItem={({ item }) => (
-            <SupermarketRouteView supermarketRoute={item} />
-          )}
-        />
-      </View> */}
     </Fragment>
   );
 }

@@ -9,8 +9,9 @@ import { KeyboardAvoiderView } from "@good-react-native/keyboard-avoider";
 import { Category } from "@/components/Category";
 import ItemButton from "@/components/ItemButton";
 import { useContext } from "react";
-import { DataContext } from "@/components/DataContext";
+import { DataContext, persistData } from "@/components/DataContext";
 import { SupermarketRoute } from "@/components/SupermarketRoute";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export interface CategoryGroup {
   category: Category;
@@ -27,20 +28,22 @@ export default function TabOneList() {
     setSupermarketRoutes,
     categoryOrder,
     setCategoryOrder,
+    availableItems,
+    setAvailableItems,
+    shoppingItems,
+    setShoppingItems,
   } = context;
 
-  const [shoppingItems, setShoppingItems] = useState([]);
   const [showAvailableItems, setShowAvailableItems] = useState(true);
   const [showShoppingList, setShowShoppingList] = useState(true);
   const [shoppingListFlexSize, setShoppingListFlexSize] = useState(3);
-  const [availableItems, setAvailableItems] = useState([
-    new Item("Bread", Category.Bakery),
-    new Item("Ice Cream", Category.Frozen),
-    new Item("Apples", Category.FruitVeg),
-  ]);
 
-  function addItemToAvailableItems(item: Item) {
-    setAvailableItems([item, ...availableItems].sort());
+  async function addItemToAvailableItems(item: Item) {
+    const newAvailableItems = [item, ...availableItems].sort();
+
+    setAvailableItems(newAvailableItems);
+
+    persistData(newAvailableItems, "availableItems");
   }
 
   const [newItem, setNewItem] = useState<string>("AA");
@@ -174,14 +177,14 @@ export const styles = (shoppingListFlexSize: number) =>
       width: "90%",
     },
     availableItems: {
-      flex: 6,
+      flex: 3,
     },
     addAvailableItem: {
-      flex: 1,
+      flex: 2,
       backgroundColor: "#03a2f3",
       borderRadius: 10,
       padding: 4,
-      margin: 5,
+      margin: 10,
     },
     addAvailableItemTop: {
       flexDirection: "row",
@@ -193,7 +196,7 @@ export const styles = (shoppingListFlexSize: number) =>
     },
     addAvailableItemBottom: {
       flexDirection: "row",
-      flex: 1,
+      flex: 3,
       backgroundColor: "#03a2f3",
     },
     itemCell: {
