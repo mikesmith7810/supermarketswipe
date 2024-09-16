@@ -50,7 +50,9 @@ export function DataProvider({ children }: { children: ReactNode }) {
     new Item("Apples", Category.FruitVeg),
   ]);
 
-  const [shoppingItems, setShoppingItems] = useState<Item[]>([]);
+  const [shoppingItems, setShoppingItems] = useState<Item[]>([
+    new Item("Apples", Category.FruitVeg),
+  ]);
 
   async function loadSupermarketRoutes() {
     try {
@@ -84,6 +86,20 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
       if (rawShoppingItems != null) {
         setShoppingItems(JSON.parse(rawShoppingItems));
+      } else {
+        setShoppingItems([new Item("Apples", Category.FruitVeg)]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function loadCurrentStore() {
+    try {
+      const rawCurrentStore = await AsyncStorage.getItem("currentStore");
+
+      if (rawCurrentStore != null) {
+        setCurrentStore(JSON.parse(rawCurrentStore));
       }
     } catch (err) {
       console.log(err);
@@ -94,6 +110,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     loadSupermarketRoutes();
     loadAvailableItems();
     loadShoppingItems();
+    loadCurrentStore();
     // AsyncStorage.clear();
   }, []);
 

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Item } from "./Item";
-import ShoppingListButton from "./ShoppingListButton";
+
 
 import { persistData } from "./DataContext";
+import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 
 interface ShoppingListItemProps {
   shoppingItem: Item;
@@ -28,14 +29,67 @@ export default function ShoppingListItem({
   }
 
   return (
-    <ShoppingListButton
-      onLongPress={() => deleteItemFromShoppingList(shoppingItem)}
+    <TouchableOpacity
+      activeOpacity={0.3}
       onPress={() => setBought(!bought)}
-      title={shoppingItem.name}
-      category={category}
-      buttonColour={bought ? "lightgray" : "lightgreen"}
-      textColour={bought ? "gray" : "black"}
-      fontSize={14}
-    />
+      onLongPress={() => deleteItemFromShoppingList(shoppingItem)}
+      style={styles(bought ? "lightgray" : "lightgreen", 14).appButtonContainer}
+    >
+      <View style={styles(bought ? "gray" : "black", 14).appButtonLeft}>
+        <Text style={styles(bought ? "gray" : "black", 14).appButtonText}>
+          {shoppingItem.name}
+        </Text>
+      </View>
+      <View style={styles(bought ? "gray" : "black", 14).appButtonRight}>
+        <Text style={styles(bought ? "gray" : "black", 10).appButtonCategory}>
+          {category}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }
+
+export const styles = (colour: string, fontSize: number) =>
+  StyleSheet.create({
+    appButtonContainer: {
+      backgroundColor: colour,
+      borderRadius: 10,
+      flexDirection: "row",
+      paddingVertical: 11,
+      paddingHorizontal: 11,
+      margin: 4,
+      width: "80%",
+    },
+    appButtonLeft: {
+      flex: 3,
+      fontSize: fontSize,
+      color: colour,
+      fontWeight: "bold",
+      alignSelf: "center",
+      textTransform: "uppercase",
+    },
+    appButtonRight: {
+      flex: 1,
+      flexDirection: "row",
+      fontSize: fontSize,
+      color: colour,
+      fontWeight: "bold",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      textTransform: "uppercase",
+    },
+    appButtonText: {
+      flex: 2,
+      fontSize: fontSize,
+      color: colour,
+      fontWeight: "bold",
+      alignItems: "flex-start",
+      textTransform: "uppercase",
+    },
+    appButtonCategory: {
+      fontSize: fontSize,
+      color: colour,
+      fontWeight: "bold",
+      textTransform: "uppercase",
+    },
+  });

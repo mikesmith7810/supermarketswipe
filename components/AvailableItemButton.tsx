@@ -1,6 +1,6 @@
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 
-interface ShoppingListItemProps {
+interface AvailableItemButtonProps {
   onPress: any;
   onLongPress: any;
   title: string;
@@ -10,7 +10,7 @@ interface ShoppingListItemProps {
   fontSize: number;
 }
 
-export default function ShoppingListButton({
+export default function AvailableItemButton({
   onPress,
   onLongPress,
   title,
@@ -18,7 +18,7 @@ export default function ShoppingListButton({
   buttonColour,
   textColour,
   fontSize,
-}: ShoppingListItemProps) {
+}: AvailableItemButtonProps) {
   return (
     <TouchableOpacity
       activeOpacity={0.3}
@@ -26,10 +26,10 @@ export default function ShoppingListButton({
       onLongPress={onLongPress}
       style={styles(buttonColour, fontSize).appButtonContainer}
     >
-      <View style={styles(textColour, fontSize).appButtonLeft}>
+      <View style={styles(textColour, fontSize).appButtonTop}>
         <Text style={styles(textColour, fontSize).appButtonText}>{title}</Text>
       </View>
-      <View style={styles(textColour, fontSize).appButtonRight}>
+      <View style={styles(textColour, fontSize).appButtonBottom}>
         <Text style={styles(textColour, 10).appButtonCategory}>{category}</Text>
       </View>
     </TouchableOpacity>
@@ -41,29 +41,24 @@ export const styles = (colour: string, fontSize: number) =>
     appButtonContainer: {
       backgroundColor: colour,
       borderRadius: 10,
-      flexDirection: "row",
       paddingVertical: 11,
       paddingHorizontal: 11,
       margin: 4,
-      borderWidth: 1,
-      width: "80%",
     },
-    appButtonLeft: {
-      flex: 3,
+    appButtonTop: {
+      flexDirection: "row",
       fontSize: fontSize,
       color: colour,
       fontWeight: "bold",
       alignSelf: "center",
       textTransform: "uppercase",
     },
-    appButtonRight: {
-      flex: 1,
+    appButtonBottom: {
       flexDirection: "row",
       fontSize: fontSize,
       color: colour,
       fontWeight: "bold",
-      justifyContent: "flex-end",
-      alignItems: "center",
+      alignSelf: "center",
       textTransform: "uppercase",
     },
     appButtonText: {
@@ -75,9 +70,11 @@ export const styles = (colour: string, fontSize: number) =>
       textTransform: "uppercase",
     },
     appButtonCategory: {
-      fontSize: fontSize,
+      flex: 1,
+      fontSize: 8,
       color: colour,
       fontWeight: "bold",
+      alignSelf: "center",
       textTransform: "uppercase",
     },
   });

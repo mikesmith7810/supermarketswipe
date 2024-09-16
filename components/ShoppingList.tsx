@@ -40,13 +40,15 @@ export default function ShoppingList({
           .filter((item) => !categoryOrder.includes(item.category))
           .map((item, index) => {
             return (
-              <ShoppingListItem
-                key={index}
-                shoppingItem={item}
-                shoppingItems={shoppingItems}
-                setShoppingItems={setShoppingItems}
-                category="Unknown"
-              />
+              <View key={index} style={styles.shoppingItem}>
+                <ShoppingListItem
+                  key={index}
+                  shoppingItem={item}
+                  shoppingItems={shoppingItems}
+                  setShoppingItems={setShoppingItems}
+                  category="Unknown"
+                />
+              </View>
             );
           })}
       </Fragment>
@@ -57,5 +59,7 @@ export default function ShoppingList({
 export const styles = StyleSheet.create({
   shoppingItem: {
     backgroundColor: "ghostwhite",
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
 });

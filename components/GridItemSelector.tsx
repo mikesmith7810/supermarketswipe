@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 import { Item } from "./Item";
 import ItemButton from "./ItemButton";
 import { persistData } from "./DataContext";
+import AvailableItemButton from "./AvailableItemButton";
 
 interface GridItemSelectorProps {
   setShoppingItems: any;
@@ -43,13 +44,14 @@ export default function GridItemSelector({
       data={availableItems}
       renderItem={({ item }) => (
         <View style={styles.itemCell}>
-          <ItemButton
-            onLongPress={() => deleteItemFromAvailableItems(item)}
+          <AvailableItemButton
             onPress={() => addItemToShoppingList(item)}
+            onLongPress={() => deleteItemFromAvailableItems(item)}
             title={item.name}
+            category={item.category}
             buttonColour="#03a2f3"
             textColour="#ffffff"
-            fontSize={14}
+            fontSize={15}
           />
         </View>
       )}

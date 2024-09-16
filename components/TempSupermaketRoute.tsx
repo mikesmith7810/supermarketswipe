@@ -40,6 +40,12 @@ export default function TempSupermarketRoute({
     }
   }
 
+  function setStore() {
+    setCurrentStore(supermarketName);
+
+    persistData(supermarketName, "currentStore");
+  }
+
   return (
     <Fragment>
       <View style={styles.createSupermarketRouteTop}>
@@ -52,7 +58,7 @@ export default function TempSupermarketRoute({
           fontSize={12}
         />
         <ItemButton
-          onPress={() => setCurrentStore(supermarketName)}
+          onPress={() => setStore()}
           onLongPress={undefined}
           title="Set Store"
           buttonColour={"#978edd"}
