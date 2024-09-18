@@ -1,6 +1,12 @@
+![alt text](https://github.com/mikesmith7810/supermarketswipe/blob/master/assets/images/supermarketswipesplash.png?raw=true)
+
+###### - Please excuse the mispelling in the logo - ChatGPT cannot spell supermaket (sp)
+
 ## Supermarket Swipe
 
-A React Native project for learning.
+### A React Native project for learning. 
+
+This is a **Work In Progress** and not the finished article. It could probably do with some refactoring and TLC. Plus, add in the fact that i had not touched React Native or Expo less than two weeks ago, they may be a couple of things which raise a few eye brows amongst seasoned app developers!
 
 This is a shopping list app which will allow a user to create a list and then go shopping with it.
 
@@ -8,9 +14,13 @@ Developed using Expo Router.
 
 Start up using locally and open in Xcode Simulator. 
 
-npx expo start --tunnel
+### Local Running -
 
-## To deploy using Xcode -
+```
+npx expo start --tunnel
+```
+
+### To deploy using Xcode -
 
 At the moment, the loading of fonts causes an issue. But only when you build with Debug mode. Either update this to release like this - by editing the Scheme for the app and changing it to **Release**
 
@@ -44,7 +54,9 @@ npx react-native bundle \
   --reset-cache
   ```
 
-Then load the project into Xcode, pair your device and using a your (free) apple id as the account, you should be able to set your 
+Then load the project into Xcode, pair your device and using a (free) apple id as the account, you should be able to set the following deploy attributes.
+
+(Note - that with a free apple account, the app will only be deployed for 7 days and you will have to redeploy it after this.) You can pay the $99/year to apple for the developer account if you so wish.
 
 #### Team under Signing & Capabilites - 
 
