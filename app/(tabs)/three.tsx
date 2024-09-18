@@ -1,5 +1,4 @@
-import { FlatList, StyleSheet } from "react-native";
-import { View } from "@/components/Themed";
+import { FlatList, StyleSheet, View } from "react-native";
 import { Category } from "@/components/Category";
 import React, { useState } from "react";
 import { useContext } from "react";
